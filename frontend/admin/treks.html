@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Manage Treks | NepalTrek Admin</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body { background-color: #f5f6fa; font-family: 'Poppins', sans-serif; }
+    .sidebar { width: 250px; height: 100vh; position: fixed; background-color: #1f2937; color: #fff; }
+    .sidebar .nav-link { color: #cbd5e1; margin: 5px 0; transition: 0.2s; }
+    .sidebar .nav-link:hover, .sidebar .nav-link.active { background-color: #374151; color: #fff; border-radius: 5px; }
+    .navbar { margin-left: 250px; background-color: #111827; }
+    .navbar-brand { color: #fff !important; font-weight: 600; }
+    main { margin-left: 250px; padding: 30px; }
+    .form-section, .table-section { background: #fff; border-radius: 15px; padding: 25px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+    .table-section { margin-top: 30px; }
+    @media (max-width: 992px) { .sidebar { width: 100%; height: auto; position: relative; } .navbar, main { margin-left: 0; } }
+  </style>
+</head>
+<body>
+  <!-- Sidebar -->
+  <div class="sidebar d-flex flex-column p-3">
+    <h3 class="text-center mb-4">NepalTrek</h3>
+    <ul class="nav nav-pills flex-column mb-auto">
+      <li><a href="index.html" class="nav-link">🏠 Dashboard</a></li>
+      <li><a href="treks.html" class="nav-link active">⛰️ Treks</a></li>
+      <li><a href="bookings.html" class="nav-link">📖 Bookings</a></li>
+      <li><a href="customers.html" class="nav-link">👥 Customers</a></li>
+      <li><a href="calendar.html" class="nav-link">📅 Calendar</a></li>
+    </ul>
+    <hr>
+    <div class="text-center small text-muted">© 2025 NepalTrek</div>
+  </div>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-dark px-4">
+    <span class="navbar-brand">Manage Treks</span>
+  </nav>
+
+  <!-- Main Content -->
+  <main>
+    <div class="form-section mb-4">
+      <h4 class="mb-3">Add New Trek</h4>
+      <form id="trekForm">
+        <div class="row g-3">
+          <div class="col-md-6"><label class="form-label">Trek Name</label><input type="text" id="trekName" class="form-control" required></div>
+          <div class="col-md-6"><label class="form-label">Location</label><input type="text" id="trekLocation" class="form-control" required></div>
+          <div class="col-md-6"><label class="form-label">Duration (days)</label><input type="number" id="trekDuration" class="form-control" required></div>
+          <div class="col-md-6"><label class="form-label">Difficulty</label>
+            <select id="trekDifficulty" class="form-select" required>
+              <option value="">Select</option><option>Easy</option><option>Moderate</option><option>Challenging</option>
+            </select>
+          </div>
+          <div class="col-md-6"><label class="form-label">Price (USD)</label><input type="number" id="trekPrice" class="form-control" required></div>
+          <div class="col-md-6"><label class="form-label">Image URL</label><input type="url" id="trekImage" class="form-control" required></div>
+          <div class="col-12"><label class="form-label">Description</label><textarea id="trekDesc" class="form-control" rows="3" required></textarea></div>
+          <div class="col-12 text-end"><button type="submit" class="btn btn-primary px-4">Add Trek</button></div>
+        </div>
+      </form>
+    </div>
+
+    <div class="table-section">
+      <h4 class="mb-3">Existing Treks</h4>
+      <table class="table table-bordered align-middle text-center" id="trekTable">
+        <thead class="table-dark">
+          <tr>
+            <th>#</th><th>Trek Name</th><th>Location</th><th>Duration</th><th>Difficulty</th><th>Price</th><th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="trekTableBody"></tbody>
+      </table>
+    </div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    const form = document.getElementById("trekForm");
+    const tableBody = document.getElementById("trekTableBody");
+    let treks = JSON.parse(localStorage.getItem("treks")) || [];
+
+    function saveTreks() {
+      localStorage.setItem("treks", JSON.stringify(treks));
+    }
+
+    function renderTreks() {
+      tableBody.innerHTML = "";
+      treks.forEach((t, index) => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+          <td>${index + 1}</td>
+          <td>${t.name}</td>
+          <td>${t.location}</td>
+          <td>${t.duration} days</td>
+          <td>${t.difficulty}</td>
+          <td>$${t.price}</td>
+          <td>
+            <button class="btn btn-sm btn-outline-primary" onclick="editTrek(${index})">Edit</button>
+            <button class="btn btn-sm btn-outline-danger" onclick="deleteTrek(${index})">Delete</button>
+          </td>`;
+        tableBody.appendChild(row);
+      });
+    }
+
+    form.addEventListener("submit", e => {
+      e.preventDefault();
+      const newTrek = {
+        name: trekName.value.trim(),
+        location: trekLocation.value.trim(),
+        duration: trekDuration.value.trim(),
+        difficulty: trekDifficulty.value.trim(),
+        price: trekPrice.value.trim(),
+        image: trekImage.value.trim(),
+        desc: trekDesc.value.trim()
+      };
+      treks.push(newTrek);
+      saveTreks();
+      renderTreks();
+      form.reset();
+    });
+
+    function deleteTrek(index) {
+      if (confirm("Delete this trek?")) {
+        treks.splice(index, 1);
+        saveTreks();
+        renderTreks();
+      }
+    }
+
+    function editTrek(index) {
+      const t = treks[index];
+      const name = prompt("Edit Trek Name:", t.name);
+      const location = prompt("Edit Location:", t.location);
+      const duration = prompt("Edit Duration (days):", t.duration);
+      const difficulty = prompt("Edit Difficulty:", t.difficulty);
+      const price = prompt("Edit Price:", t.price);
+      treks[index] = { ...t, name, location, duration, difficulty, price };
+      saveTreks();
+      renderTreks();
+    }
+
+    renderTreks();
+  </script>
+</body>
+</html>

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Testimonials | NepalTrek</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">NepalTrek</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="treks.html">Treks</a></li>
+          <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+          <li class="nav-item"><a class="nav-link active" href="testimonials.html">Testimonials</a></li>
+          <li class="nav-item"><a class="nav-link active" href="blog.html">Travel Guide</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Testimonials Section -->
+  <section class="py-5">
+    <div class="container">
+      <h1 class="text-center mb-4">What Our Trekkers Say</h1>
+
+      <div class="row g-4">
+        <!-- Static Review Card -->
+        <div class="col-md-4">
+          <div class="card h-100">
+            <div class="card-body">
+              <h5 class="card-title">Anjali R.</h5>
+              <h6 class="card-subtitle mb-2 text-muted">Everest Base Camp Trek</h6>
+              <p class="card-text">Absolutely breathtaking journey. The guides were experienced and very friendly. NepalTrek took care of everything!</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Static Review Card -->
+        <div class="col-md-4">
+          <div class="card h-100">
+            <div class="card-body">
+              <h5 class="card-title">Mark T.</h5>
+              <h6 class="card-subtitle mb-2 text-muted">Annapurna Circuit</h6>
+              <p class="card-text">I’ve trekked in many countries, but this was something special. Thank you NepalTrek for the unforgettable experience!</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Static Review Card -->
+        <div class="col-md-4">
+          <div class="card h-100">
+            <div class="card-body">
+              <h5 class="card-title">Sara M.</h5>
+              <h6 class="card-subtitle mb-2 text-muted">Langtang Valley</h6>
+              <p class="card-text">Well organized and very accommodating. I felt safe and inspired every step of the way.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Review Form -->
+      <div class="mt-5">
+        <h3 class="text-center mb-4">Leave a Testimonial</h3>
+        <form action="https://formspree.io/f/yourFormID" method="POST" class="mx-auto" style="max-width: 600px">
+          <div class="mb-3">
+            <label for="name" class="form-label">Your Name</label>
+            <input type="text" class="form-control" id="name" name="name" required>
+          </div>
+          <div class="mb-3">
+            <label for="trek" class="form-label">Trek You Joined</label>
+            <input type="text" class="form-control" id="trek" name="trek" required>
+          </div>
+          <div class="mb-3">
+            <label for="testimonial" class="form-label">Your Review</label>
+            <textarea class="form-control" id="testimonial" name="testimonial" rows="4" required></textarea>
+          </div>
+          <button type="submit" class="btn btn-success">Submit Review</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-dark text-white text-center py-4">
+    <div class="container">
+      <p class="mb-0">&copy; 2025 NepalTrek. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
